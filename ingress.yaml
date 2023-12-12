@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: full-demo
+  namespace: full-demo
+  labels:
+    app: full-demo
+    backstage.io/kubernetes-id: full-demo
+spec:
+  rules:
+    - host: full-demo-7f000001.nip.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: full-demo
+                port:
+                  number: 80

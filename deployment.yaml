@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: full-demo
+    backstage.io/kubernetes-id: full-demo
+  name: full-demo
+  namespace: full-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: full-demo
+  template:
+    metadata:
+      labels:
+        app: full-demo
+        backstage.io/kubernetes-id: full-demo
+    spec:
+      containers:
+        - name: main-app
+          image: app_code_image
+          ports:
+            - containerPort: 5000
+              protocol: TCP
+              name: http
+      # https://dev.to/asizikov/using-github-container-registry-with-kubernetes-38fb
+      # Not necessary on LZ Prod Clusters, just for this demo!
+      imagePullSecrets:
+        - name: dockerconfigjson-github-com
